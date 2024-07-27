@@ -18,3 +18,11 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/applications', function () {
+    return view('applications');
+})->middleware(['auth', 'verified'])->name('applications');
+
+Route::get('/leads', function () {
+    return view('leads');
+})->middleware(['auth', 'verified'])->name('leads');
