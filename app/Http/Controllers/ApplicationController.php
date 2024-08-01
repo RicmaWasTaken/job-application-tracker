@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Application;
+use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
@@ -13,6 +14,12 @@ class ApplicationController extends Controller
     {
         $userId = Auth::id();
         $user_applications = Application::where('user_id', $userId)->get();
+        foreach($user_applications as $application){
+            // relative date handling (X days ago)
+            $days_ago = Carbon::parse($application->last_contact)->diffForHumans();
+            $application->days_ago = $days_ago;
+        }
+        
         return view('applications', compact('user_applications'));
     }
     
