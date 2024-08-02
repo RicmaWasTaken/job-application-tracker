@@ -3,9 +3,16 @@
         <div class="w-full mx-auto sm:px-6 lg:px-8 h-full flex flex-1">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex-1">
                 <div class="p-6 text-gray-900 h-full flex flex-col gap-6">
+                    <a href="">
+                        <div id="new-application" class="h-28 w-full sm:rounded-lg p-6 border-4 border-indigo-400 flex flex-row justify-center items-center border-dashed group hover:bg-indigo-400">
+                            <div class="border-box h-12 stroke-indigo-400 group-hover:stroke-white group-hover:animate-bounce">
+                                <svg width="auto" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12H18M12 6V18" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                            </div>
+                        </div>
+                    </a>
                     {{ $user_applications }}
                     @foreach ($user_applications as $application)
-                    <div id="application" class="h-28 w-full bg-red-400 sm:rounded-lg p-6 mb-4 border-b-4 border-indigo-400 flex flex-row">
+                    <div id="application" class="h-28 w-full bg-red-400 sm:rounded-lg p-6 flex flex-row [&:not(:last-child)]:border-b-4 border-indigo-400">
                         <div id="application-id" class="h-full aspect-square border-r-4 border-indigo-400 flex items-center justify-center self-center">
                             <p class="text-4xl">{{$application->id}}</p>
                         </div>
@@ -27,6 +34,7 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
                     @endforeach
                 </div>
             </div>
