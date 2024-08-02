@@ -3,9 +3,9 @@
         <div class="w-full mx-auto sm:px-6 lg:px-8 h-full flex flex-1">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex-1">
                 <div class="p-6 text-gray-900 h-full flex flex-col gap-6">
-                    <a href="">
-                        <div id="new-application" class="h-28 w-full sm:rounded-lg p-6 border-4 border-indigo-400 flex flex-row justify-center items-center border-dashed group hover:bg-indigo-400">
-                            <div class="border-box h-12 stroke-indigo-400 group-hover:stroke-white group-hover:animate-bounce">
+                    <a href="../">
+                        <div id="new-application" class="h-28 w-full sm:rounded-lg p-6 border-4 border-indigo-400 flex flex-row justify-center items-center border-dashed group bg-gradient-to-b from-indigo-400 to-indigo-400 bg-center bg-no-repeat bg-0100 transition-fillout duration-500 hover:bg-100100">
+                            <div class="border-box h-12 stroke-indigo-400 group-hover:stroke-white">
                                 <svg width="auto" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 12H18M12 6V18" stroke="" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                             </div>
                         </div>
@@ -16,8 +16,8 @@
                         <div id="application-id" class="h-full aspect-square border-r-4 border-indigo-400 flex items-center justify-center self-center">
                             <p class="text-4xl">{{$application->id}}</p>
                         </div>
-                        <div class="flex flex-row justify-between w-full w-[calc(100%-4rem)]">
-                            <div id="application-main-info" class="h-full flex flex-col pl-6">
+                        <div class="flex flex-row justify-between w-[calc(100%-4rem)]">
+                            <div id="application-main-info" class="h-full flex flex-col pl-6 justify-center">
                                 <p id="company-name" class="text-2xl">{{$application->company_name}}</p>
                                 <div class="flex flex-row">
                                     <p id="location" class="pr-1 border-r-2 border-indigo-400">{{$application->location}}</p>

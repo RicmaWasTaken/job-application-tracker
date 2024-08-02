@@ -14,6 +14,16 @@ export default {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            backgroundSize: {
+                '0100': '0% 100%',
+                '100100' : '100% 100%',
+            },
+            transitionProperty: {
+                'fillout' : 'background-size',
+            },
+            transitionDuration: {
+                '500' : '0.5s',
+            },
         },
     },
 
