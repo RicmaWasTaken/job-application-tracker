@@ -1,3 +1,15 @@
-<svg width="800px" height="800px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M4 12.6111L8.92308 17.5L20 6.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 544.64 544.64">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #009444;
+        fill-rule: evenodd;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <g id="SVGRepo_iconCarrier" data-name="SVGRepo iconCarrier">
+    <path class="cls-1" d="m544.64,272.32c0,150.4-121.92,272.32-272.32,272.32S0,422.72,0,272.32,121.92,0,272.32,0s272.32,121.92,272.32,272.32Zm-162.57-82.52c7.98,7.98,7.98,20.91,0,28.88l-136.16,136.16c-7.98,7.98-20.91,7.98-28.88,0l-54.46-54.46c-7.98-7.98-7.98-20.91,0-28.88,7.98-7.98,20.91-7.98,28.88,0l40.02,40.02,60.86-60.86,60.86-60.86c7.98-7.98,20.91-7.98,28.88,0Z"/>
+  </g>
 </svg>

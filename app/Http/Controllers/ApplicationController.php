@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
-    public function index()
+    public function show()
     {
         $userId = Auth::id();
         $user_applications = Application::where('user_id', $userId)->get();
@@ -18,6 +18,8 @@ class ApplicationController extends Controller
             // relative date handling (X days ago)
             $days_ago = Carbon::parse($application->last_contact)->diffForHumans();
             $application->days_ago = $days_ago;
+            //yes or no interview icon 
+            $application->interview ? $application->interviewSource = 'images/interview.svg' : $application->interviewSource = 'images/nointerview.svg';
         }
         
         return view('applications', compact('user_applications'));
