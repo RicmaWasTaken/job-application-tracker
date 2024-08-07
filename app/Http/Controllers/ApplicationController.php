@@ -22,7 +22,7 @@ class ApplicationController extends Controller
             $application->interview ? $application->interviewSource = 'images/interview.svg' : $application->interviewSource = 'images/nointerview.svg';
         }
         
-        return view('applications', compact('user_applications'));
+        return view('applications.show', compact('user_applications'));
     }
     
     public function create(Request $request){
@@ -43,5 +43,13 @@ class ApplicationController extends Controller
         ]);
         Application::create($validatedData);
         return view('applications', compact('validatedData'));
+    }
+
+    public function edit($id){
+        $application = Application::find($id);
+        if($application->user_id != Auth::id()){
+            return redirect()->route('dashboard');
+        }
+        return view('applications.edit', compact('$editable'));
     }
 }
