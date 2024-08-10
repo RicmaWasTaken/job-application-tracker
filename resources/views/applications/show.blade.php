@@ -12,7 +12,6 @@
                             </div>
                         </div>
                     </a>
-                    {{$user_applications}}
                     @foreach ($user_applications as $application)
                     <a href="/applications/{{$application->id}}">
                         <div id="application" class="h-28 w-full relative sm:rounded-lg p-6 flex flex-row hover:bg-indigo-400 custom-border">

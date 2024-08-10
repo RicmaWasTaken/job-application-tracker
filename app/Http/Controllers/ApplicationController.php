@@ -10,8 +10,7 @@ use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
-    public function show()
-    {
+    public function show(){
         $userId = Auth::id();
         $user_applications = Application::where('user_id', $userId)->get();
         foreach($user_applications as $application){
@@ -26,7 +25,7 @@ class ApplicationController extends Controller
     }
     
     public function create(Request $request){
-        //dd($request->all());
+        //dd($request->all()) for debugging purposes;
         $validatedData = $request->validate([
             'user_id' => 'required|integer',
             'company_name' => 'required|string|max:255',
@@ -42,7 +41,7 @@ class ApplicationController extends Controller
             'comments' => 'nullable' 
         ]);
         Application::create($validatedData);
-        return view('applications', compact('validatedData'));
+        return view('applications.show', compact('validatedData'));
     }
 
     public function edit($id){
@@ -50,6 +49,15 @@ class ApplicationController extends Controller
         if($application->user_id != Auth::id()){
             return redirect()->route('dashboard');
         }
-        return view('applications.edit', compact('$editable'));
+        return view('applications.edit', compact('editable'));
+    }
+
+    public function delete($id){
+        $application = Application::find($id);
+        if($application->user_id != Auth::id()){
+            return redirect()->route('dashboard');
+        }
+        $application->delete();
+        return redirect()->route('applications.show');
     }
 }
