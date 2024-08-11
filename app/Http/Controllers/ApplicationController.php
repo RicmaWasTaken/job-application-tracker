@@ -36,7 +36,7 @@ class ApplicationController extends Controller
             'last_contact' => 'required|date',
             'via' => 'required|string|max:255',
             'interview' => 'required|boolean', 
-            'status' => 'required|integer',
+            'status' => 'required|string|max:255',
             'link' => 'nullable',
             'comments' => 'nullable' 
         ]);
@@ -59,5 +59,9 @@ class ApplicationController extends Controller
         }
         $application->delete();
         return redirect()->route('applications.show');
+    }
+
+    public function dump(Request $request){
+        dd($request->all());
     }
 }
