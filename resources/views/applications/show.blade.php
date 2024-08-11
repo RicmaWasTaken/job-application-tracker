@@ -1,4 +1,22 @@
 <x-app-layout>
+
+    @if ($errors->any())
+        <div id="error-message" class="animate-pulse relative w-3/4 min-h-10 bg-red-400 mx-auto p-2">
+            <svg id="close-error" class="h-6 w-6 absolute right-2 top-2 hover:cursor-pointer stroke-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    @if (isset($message))
+        <div id="success-message" class="transition-opacity opacity-100 relative w-3/4 min-h-10 bg-green-400 mx-auto p-2">
+            {{$message}}
+        </div>
+    @endif
     <div class="py-12 flex-1 min-h-full flex flex-col">
         <div class="w-full mx-auto sm:px-6 lg:px-8 h-full flex flex-1">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg flex-1">
@@ -45,7 +63,7 @@
     </div>
     <div id="form-wrapper" class="hidden absolute w-full h-[calc(100%-64.8px)] bg-slate-600 bg-opacity-50 justify-center items-center">
         <div id="form-container" class="min-w-[750px] relative bg-white w-1/2 h-3/4 rounded-xl p-6">
-            <form action="/applications/dump" method="POST" class="h-full flex flex-col justify-between items-center">
+            <form action="/applications" method="POST" class="h-full flex flex-col justify-between items-center">
                 @csrf
                 <div class="flex flex-col gap-2 w-full">
                     <p class="text-lg">Company</p>
@@ -83,13 +101,13 @@
                     </div>
                 </div>
                 <button type="submit" class="w-max py-2 px-4 text-white rounded-md bg-indigo-400 hover:animate-pulse">Submit</button>
-                <input class="absolute bottom-6 left-6 underline text-gray-500 hover:cursor-pointer" type="reset" value="Reset"/>
+                <input class="absolute bottom-6 left-6 underline text-gray-500 hover:cursor-pointer" type="reset" value="Reset" />
             </form>
             <button id="close-button" type="button" class="top-4 right-4 absolute bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-400">
-              <span class="sr-only">Close menu</span>
-              <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
+                <span class="sr-only">Close menu</span>
+                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
             </button>
         </div>
     </div>
@@ -117,10 +135,20 @@
         function checkInputs() {
             const fillableInputs = document.querySelectorAll('.fillable-input');
             fillableInputs.forEach(input => {
-                if(input.value === '') {
+                if (input.value === '') {
                     console.error(`${input} is empty !`);
                 };
             });
         };
+
+        //error message closing
+        document.getElementById('close-error').addEventListener('click', function() {
+            document.getElementById('error-message').style.display = 'none';
+        });
+
+        //success message closing
+        setTimeout(function() {
+            document.getElementById('success-message').style.opacity = '0';
+        }, 2000);
     </script>
 </x-app-layout>

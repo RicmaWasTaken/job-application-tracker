@@ -37,11 +37,32 @@ class ApplicationController extends Controller
             'via' => 'required|string|max:255',
             'interview' => 'required|boolean', 
             'status' => 'required|string|max:255',
-            'link' => 'nullable',
+            'link' => 'nullable|url',
             'comments' => 'nullable' 
-        ]);
+        ],[
+            'user_id.required' => 'Something went wrong, please try again later!',
+            'company_name.required' => 'Please enter a company name!',
+            'company_name.max' => 'Please enter a valid email address!',
+            'location.required' => 'Please enter a location!',
+            'location.max' => 'Please enter a valid location!',
+            'sector.required' => 'Please enter a sector!',
+            'sector.max' => 'Please enter a valid sector!',
+            'discovered_on.required' => 'Please enter a date of discovery!',
+            'first_contact.required' => 'Please enter a date of first contact!',
+            'last_contact.required' => 'Please enter a date of last contact!',
+            'date' => 'Please enter a valid date format (YYYY-MMM-DD)!',
+            'via.required' => 'Please enter a how you discovered the company (via)!',
+            'via.max' => 'Please enter a valid via!',
+            'interview.required' => 'Please enter if you had an interview!',
+            'interview.boolean' => 'Please only use "Yes" or "No" in the interview field!',
+            'status.required' => 'Please enter a status!',
+            'status.max' => 'Please enter a valid status!',
+            'link.url' => 'Please enter a valid link (https://...)!',
+        ]
+    );
         Application::create($validatedData);
-        return view('applications.show', compact('validatedData'));
+        $message = 'Application created successfully!';
+        return view('applications.show', compact('validatedData', 'message'));
     }
 
     public function edit($id){
