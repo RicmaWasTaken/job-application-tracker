@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
-    public function show(){
+    public function show($errorMessage = null){
         $userId = Auth::id();
         $user_applications = Application::where('user_id', $userId)->get();
         foreach($user_applications as $application){
@@ -19,9 +19,8 @@ class ApplicationController extends Controller
             $application->days_ago = $days_ago;
             //yes or no interview icon 
             $application->interview ? $application->interviewSource = 'images/interview.svg' : $application->interviewSource = 'images/nointerview.svg';
-        }
-        
-        return view('applications.show', compact('user_applications'));
+        }        
+        return view('applications.show', compact('user_applications', 'errorMessage'));
     }
     
     public function create(Request $request){
@@ -61,16 +60,27 @@ class ApplicationController extends Controller
         ]
     );
         Application::create($validatedData);
-        $message = 'Application created successfully!';
-        return view('applications.show', compact('validatedData', 'message'));
+        $successMessage = 'Application created successfully!';
+        return view('applications.show', compact('validatedData', 'successMessage'));
     }
 
     public function edit($id){
         $application = Application::find($id);
+        if ($application == null){
+            $errorMessage = 'Application not found!';
+            return redirect()->route('applications.show')->with('error', $errorMessage);
+        }elseif($application->user_id != Auth::id()){
+            $errorMessage = 'You are not authorized to edit this application!';
+            return redirect()->route('applications.show')->with('error', $errorMessage);
+        }
+        return view('applications.edit', compact('application'));
+    }
+
+    public function applyEdit($id){
+        $application = Application::find($id);
         if($application->user_id != Auth::id()){
             return redirect()->route('dashboard');
         }
-        return view('applications.edit', compact('editable'));
     }
 
     public function delete($id){
@@ -80,9 +90,5 @@ class ApplicationController extends Controller
         }
         $application->delete();
         return redirect()->route('applications.show');
-    }
-
-    public function dump(Request $request){
-        dd($request->all());
     }
 }

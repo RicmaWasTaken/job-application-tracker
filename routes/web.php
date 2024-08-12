@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware(['auth', 'verified', AddUserIdToRequest::class])->group(function () {
-    Route::get('/applications', [ApplicationController::class, 'show'])->name('applications');
+    Route::get('/applications', [ApplicationController::class, 'show'])->name('applications.show');
     Route::post('/applications', [ApplicationController::class, 'create'])->name('applications.create');
     Route::get('/applications/{id}', [ApplicationController::class, 'edit'])->name('applications.edit');
     Route::post('/applications/dump', [ApplicationController::class, 'dump'])->name('applications.dump');
