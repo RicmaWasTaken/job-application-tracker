@@ -18,10 +18,10 @@ class Lead extends Model
         'sector',
         'discovered_on',
         'via',
-        'interview',
         'link',
         'comments',
         'quality',
+        'converted',
     ];
 
     public function user()
