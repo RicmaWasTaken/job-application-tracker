@@ -1,7 +1,16 @@
 <x-app-layout>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <div class="w-full min-h-[calc(100vh-64.8px)] flex justify-center items-center">
         <div class="relative min-w-[750px] w-1/2 h-[calc((100vh-68.4px)*0.75)] mx-auto bg-white p-6 rounded-xl">
-            <form action="/applications" method="POST" name="new-application-form" class="h-full w-full flex flex-col justify-between items-center">
+            <form action="/applications/{{$application->id}}" method="POST" name="edit-application-form" class="h-full w-full flex flex-col justify-between items-center">
                 @csrf
                 <div class="flex flex-col gap-2 w-full">
                     <p class="text-lg">Company</p>
@@ -25,11 +34,11 @@
                         <input class="fillable-input rounded-md border-2 border-indigo-300 w-[30%]" type="text" placeholder="Via" value="{{$application->via}}" name="via">
                         <select class="fillable-input rounded-md border-2 border-indigo-300 w-[30%]" type="text" placeholder="Interview" name="interview">
                             <option value="" disabled>Interview</option>
-                            <option value="true" {{ $application->interview == true ? 'selected' : '' }}>Yes</option>
-                            <option value="false" {{ $application->interview == false ? 'selected' : '' }}>No</option>
+                            <option value="1" {{ $application->interview == true ? 'selected' : '' }}>Yes</option>
+                            <option value="0" {{ $application->interview == false ? 'selected' : '' }}>No</option>
                         </select>
                         <select class="fillable-input rounded-md border-2 border-indigo-300 w-[30%]" type="text" placeholder="Status" name="status">
-                            <option value="" disabled >Status</option>
+                            <option value="" disabled>Status</option>
                             <option value="waiting" {{ $application->status == "waiting" ? 'selected' : '' }}>Waiting</option>
                             <option value="accepted" {{ $application->status == "accepted" ? 'selected' : '' }}>Accepted</option>
                             <option value="rejected" {{ $application->status == "rejected" ? 'selected' : '' }}>Rejected</option>
@@ -43,4 +52,21 @@
             </form>
         </div>
     </div>
+    <script>
+        function validateInputs() {
+            const fillableInputs = document.querySelectorAll('.fillable-input');
+            var isFormValid = true;
+            fillableInputs.forEach(input => {
+                if (input.value === '') {
+                    isFormValid = false;
+                    input.classList.add('border-red-500');
+                } else {
+                    input.classList.remove('border-red-500');
+                }
+            });
+            if (isFormValid) {
+                document.forms["edit-application-form"].submit();
+            }
+        };
+    </script>
 </x-app-layout>
