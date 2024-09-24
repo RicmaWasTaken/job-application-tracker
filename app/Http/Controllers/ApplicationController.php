@@ -10,17 +10,20 @@ use Illuminate\Support\Carbon;
 
 class ApplicationController extends Controller
 {
-    public function show($errorMessage = null){
+    public function show(){
         $userId = Auth::id();
         $user_applications = Application::where('user_id', $userId)->get();
         foreach($user_applications as $application){
-            // relative date handling (X days ago)
+            //relative date handling (X days ago)
             $days_ago = Carbon::parse($application->last_contact)->diffForHumans();
             $application->days_ago = $days_ago;
             //yes or no interview icon 
-            $application->interview ? $application->interviewSource = 'images/interview.svg' : $application->interviewSource = 'images/nointerview.svg';
-        }        
-        return view('applications.show', compact('user_applications', 'errorMessage'));
+            $application->interview ? $application->interviewImage = 'images/interview.svg' : $application->interviewImage = 'images/nointerview.svg';
+            //custom status image 
+            $application->statusImage = "images/$application->status.svg";
+        }
+        $successMessage = session()->get('successMessage');
+        return view('applications.show', compact('user_applications', 'successMessage'));
     }
     
     public function create(Request $request){
@@ -61,7 +64,7 @@ class ApplicationController extends Controller
     );
         Application::create($validatedData);
         $successMessage = 'Application created successfully!';
-        return view('applications.show', compact('validatedData', 'successMessage'));
+        return redirect()->route('applications.show')->with([ 'successMessage' => $successMessage ]);
     }
 
     public function edit($id){

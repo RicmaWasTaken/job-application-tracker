@@ -57,8 +57,8 @@
                                         <p class="text-3xl">{{$application->days_ago}}</p>
                                     </div>
                                     <div id="icons" class="h-3/5 w-auto flex flex-row gap-4">
-                                        <img fill="white" src="{{asset($application->interviewSource)}}" alt="">
-                                        <img class="h-full w-auto" src="{{asset('images/pending.svg')}}" alt="">
+                                        <img fill="white" src="{{asset($application->interviewImage)}}" alt="">
+                                        <img class="h-full w-auto" src="{{asset($application->statusImage)}}" alt="">
                                     </div>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
     </div>
     <div id="form-wrapper" class="hidden absolute w-full h-[calc(100%-64.8px)] bg-slate-600 bg-opacity-50 justify-center items-center">
         <div id="form-container" class="min-w-[750px] relative bg-white w-1/2 h-3/4 rounded-xl p-6">
-            <form action="/applications" method="POST" name="new-application-form" class="h-full flex flex-col justify-between items-center">
+            <form action="/applications/create" method="POST" name="new-application-form" class="h-full flex flex-col justify-between items-center">
                 @csrf
                 <div class="flex flex-col gap-2 w-full">
                     <p class="text-lg">Company</p>
@@ -96,8 +96,8 @@
                         <input class="fillable-input rounded-md border-2 border-indigo-300 w-[30%]" type="text" placeholder="Via" name="via">
                         <select class="fillable-input rounded-md border-2 border-indigo-300 w-[30%]" type="text" placeholder="Interview" name="interview">
                             <option value="" disabled selected>Interview</option>
-                            <option value="true">Yes</option>
-                            <option value="false">No</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                         <select class="fillable-input rounded-md border-2 border-indigo-300 w-[30%]" type="text" placeholder="Status" name="status">
                             <option value="" disabled selected>Status</option>
