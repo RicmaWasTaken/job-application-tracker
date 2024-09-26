@@ -43,8 +43,8 @@
                             <option value="accepted" {{ $application->status == "accepted" ? 'selected' : '' }}>Accepted</option>
                             <option value="rejected" {{ $application->status == "rejected" ? 'selected' : '' }}>Rejected</option>
                         </select>
-                        <input class="rounded-md border-2 border-indigo-300 flex-1" type="url" placeholder="Link" value="{{ isset($link) ? $link : '' }}" name="link">
-                        <input class="rounded-md border-2 border-indigo-300 flex-1" type="text" placeholder="Comments" value="{{ isset($comments) ? $comments : '' }}" name="comments">
+                        <input class="rounded-md border-2 border-indigo-300 flex-1" type="url" placeholder="Link" value="{{ isset($application->link) ? $application->link : '' }}" name="link">
+                        <input class="rounded-md border-2 border-indigo-300 flex-1" type="text" placeholder="Comments" value="{{ isset($application->comments) ? $application->comments : '' }}" name="comments">
                     </div>
                 </div>
                 <button onclick="validateInputs()" type="button" class="w-max py-2 px-4 text-white rounded-md bg-indigo-400 hover:animate-pulse">Submit</button>
