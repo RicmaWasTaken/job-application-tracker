@@ -25,8 +25,8 @@ Route::middleware(['auth', 'verified', AddUserIdToRequest::class])->group(functi
     Route::post('/applications/create', [ApplicationController::class, 'create'])->name('applications.create');
     Route::get('/applications/{id}', [ApplicationController::class, 'edit'])->name('applications.edit');
     Route::post('/applications/{id}', [ApplicationController::class, 'applyEdit'])->name('applications.applyEdit');
-    Route::get('/leads', [LeadController::class, 'index'])->name('leads');
-    Route::post('/leads', [LeadController::class, 'create'])->name('leads.create');
+    Route::get('/leads', [LeadController::class, 'show'])->name('leads.show');
+    Route::post('/leads/create', [LeadController::class, 'create'])->name('leads.create');
     Route::get('/test', function () {
         return view('test');
     })->name('applications.test');

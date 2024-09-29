@@ -22,7 +22,7 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('leads')" :active="request()->routeIs('leads')">
+                    <x-nav-link :href="route('leads.show')" :active="request()->routeIs('leads.show', 'leads.edit')">
                         {{ __('Leads') }}
                     </x-nav-link>
                 </div>
@@ -80,10 +80,10 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('applications.show')" :active="request()->routeIs('applications')">
+            <x-responsive-nav-link :href="route('applications.show')" :active="request()->routeIs('applications.show', 'applications.edit')">
                 {{ __('Applications') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('leads')" :active="request()->routeIs('leads')">
+            <x-responsive-nav-link :href="route('leads.show')" :active="request()->routeIs('leads.show', 'leads.edit')">
                 {{ __('Leads') }}
             </x-responsive-nav-link>
         </div>
