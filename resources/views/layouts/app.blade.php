@@ -16,7 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Page-specific styles -->
-    @if (Route::is('leads.show'))
+    @if (Route::is('leads.show', 'leads.edit'))
         <style>
             .slider {
                 -webkit-appearance: none;
