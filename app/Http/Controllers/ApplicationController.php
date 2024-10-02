@@ -67,7 +67,7 @@ class ApplicationController extends Controller
         return redirect()->route('applications.show')->with([ 'successMessage' => $successMessage ]);
     }
 
-    public function edit($id){
+    public function edit($id){ //grabs the application with the id and passes it to the edit view for display
         $application = Application::find($id);
         if ($application == null){
             $errorMessage = 'Application not found!';
@@ -79,7 +79,7 @@ class ApplicationController extends Controller
         return view('applications.edit', compact('application'));
     }
 
-    public function applyEdit(Request $request, $id){
+    public function applyEdit(Request $request, $id){ //updates the application with new data from the edit page form
         $application = Application::find($id);
         if($application->user_id != Auth::id()){
             return redirect()->route('dashboard');
@@ -119,7 +119,7 @@ class ApplicationController extends Controller
         return redirect()->route('applications.show');
     }
 
-    public function delete($id){
+    public function delete($id){ //method still under contruction and useless for now
         $application = Application::find($id);
         if($application->user_id != Auth::id()){
             return redirect()->route('dashboard');
