@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function show(){
         $user_id = Auth::id();
         $weeklyApplications = $this->getWeeklyApplications($user_id);
-        $lastApplications = $this->getLastApplications($user_id, 3);
+        $lastApplications = $this->getLastApplications($user_id, 5);
         return view('dashboard', compact('weeklyApplications', 'lastApplications'));
     }
 
