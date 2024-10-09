@@ -8,6 +8,20 @@
         </ul>
     </div>
     @endif
+    <div id="delete-confirmation-popup" class="hidden absolute z-10 bg-slate-600 bg-opacity-50 h-[calc(100vh-64.8px)] w-full">
+        <div id="popup-content" class="flex flex-col justify-around items-center bg-white p-6 w-2/3 min-h-52 h-1/2 absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 sm:rounded-lg">
+            <p>Are you sure that you want to <b>permanently</b> delete your lead at {{$lead->company_name}} ?</p>
+            <div class="flex flex-row w-1/2 justify-between">
+                <div class="h-10 box-border flex flex-row gap-2 border-2 border-gray-900 sm:rounded-lg py-2 px-4 hover:cursor-pointer">
+                    <p>Cancel</p>
+                </div>
+                <a href="/leads/{{$lead->id}}/delete" class="h-10 box-border flex flex-row gap-2 sm:rounded-lg py-2 px-4 bg-red-400">
+                    <p>Delete</p>
+                    <img src="{{asset('images/delete.svg')}}" alt="" class="max-h-full">
+                </a>
+            </div>
+        </div>
+    </div>
     <div id="form-wrapper" class="w-full min-h-[calc(100vh-64.8px)] flex justify-center items-center">
         <div id="form-container" class="relative min-w-[750px] w-1/2 h-[calc((100vh-68.4px)*0.75)] mx-auto bg-white p-6 rounded-xl">
             <form action="/leads/{{$lead->id}}" method="POST" name="new-lead-form" class="h-full w-full flex flex-col justify-between items-center">
@@ -53,10 +67,32 @@
                 </div>
                 <button onclick="validateInputs()" type="button" class="w-max py-2 px-4 text-white rounded-md bg-indigo-400 hover:animate-pulse">Submit</button>
                 <input class="absolute bottom-6 left-6 underline text-gray-500 hover:cursor-pointer" type="reset" value="Reset" />
+                <div id="delete-button" class="h-10 box-border flex flex-row gap-2 bg-red-400 sm:rounded-lg py-2 px-4 absolute bottom-6 right-6 hover:cursor-pointer">
+                    <p>Delete</p>
+                    <img src="{{asset('images/delete.svg')}}" alt="" class="max-h-full">
+                </div>
             </form>
         </div>
     </div>
     <script>
+        //popup opening and closing
+        var isPopupOpen = false;
+        const popup = document.getElementById('delete-confirmation-popup');
+        const deleteButton = document.getElementById('delete-button');
+        const popupContent = document.getElementById('popup-content');
+        deleteButton.addEventListener('click', function() {
+            if (!isPopupOpen) {
+                popup.style.display = 'flex';
+                isPopupOpen = true;
+            }
+        });
+        popup.addEventListener('click', function() {
+            if (!popupContent.contains(event.target)) {
+                popup.style.display = 'none';
+                isPopupOpen = false;
+            }
+        });
+
         //form opening and closing
         var isFormOpen = false;
         document.getElementById('new-lead').addEventListener('click', function() {

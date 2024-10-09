@@ -22,9 +22,9 @@ return new class extends Migration
             $table->date('last_contact');
             $table->string('via');
             $table->boolean('interview');
-            $table->integer('status');
-            $table->text('link');
-            $table->text('comments');
+            $table->string('status');
+            $table->text('link')->nullable();
+            $table->text('comments')->nullable();
             $table->timestamps();
         });
     }

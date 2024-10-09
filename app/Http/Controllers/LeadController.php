@@ -13,9 +13,11 @@ class LeadController extends Controller
     public function show(){
         $userId = Auth::id();
         $user_leads = Lead::where('user_id', $userId)->get();
+        $number_of_leads = 0; //used to determine the index of each lead
         foreach($user_leads as $lead){
-            //relative date handling (X days ago)
-            $days_ago = Carbon::parse($lead->discovered_on)->diffForHumans();
+            $number_of_leads++; //increment the index for each lead
+            $lead->index = $number_of_leads; //add the current index to the lead
+            $days_ago = Carbon::parse($lead->discovered_on)->diffForHumans(); //relative date handling (X days ago)
             $lead->days_ago = $days_ago;
         }
         $successMessage = session()->get('successMessage');
@@ -98,6 +100,16 @@ class LeadController extends Controller
             'quality.between' => 'Please enter a quality rating between 0 and 10!',
         ]);
         $lead->update($validatedData);
+        return redirect()->route('leads.show');
+    }
+
+    public function delete($id){ //deletes the selected lead
+        $lead = Lead::find($id); //get the lead
+        if($lead->user_id != Auth::id()){ //check if user has permission to delete
+            return redirect()->route('dashboard');
+        }else{
+            $lead->delete(); //delete the lead
+        };
         return redirect()->route('leads.show');
     }
 }

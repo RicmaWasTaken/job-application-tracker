@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('sector');
             $table->date('discovered_on');
             $table->string('via');
-            $table->boolean('interview');
-            $table->text('link');
-            $table->text('comments');
+            $table->text('link')->nullable();
+            $table->text('comments')->nullable();
             $table->integer('quality');
+            $table->boolean('converted')->default(false);
             $table->timestamps();
         });
     }

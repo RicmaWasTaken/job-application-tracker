@@ -42,7 +42,7 @@
                     <a href="/leads/{{$lead->id}}">
                         <div id="lead" class="h-28 w-full relative sm:rounded-lg p-6 flex flex-row hover:bg-indigo-400 custom-border">
                             <div id="lead-id" class="h-full aspect-square border-r-4 border-indigo-400 flex items-center justify-center self-center">
-                                <p class="text-4xl">{{$lead->id}}</p>
+                                <p class="text-4xl">{{$lead->index}}</p>
                             </div>
                             <div class="flex flex-row justify-between w-[calc(100%-4rem)]">
                                 <div id="lead-main-info" class="h-full flex flex-col pl-6 justify-center">

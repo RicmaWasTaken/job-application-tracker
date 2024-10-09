@@ -74,7 +74,7 @@
             -->
 
         <!-- Page Content -->
-        <main class="flex-1 flex flex-col h-full">
+        <main class="flex-1 flex flex-col h-full relative">
             {{ $slot }}
         </main>
     </div>

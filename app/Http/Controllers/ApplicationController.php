@@ -11,16 +11,16 @@ use Illuminate\Support\Carbon;
 class ApplicationController extends Controller
 {
     public function show(){
-        $userId = Auth::id();
-        $user_applications = Application::where('user_id', $userId)->get();
+        $userId = Auth::id(); //define user's id
+        $user_applications = Application::where('user_id', $userId)->get(); //get ALL of the user's applications
+        $number_of_applications = 0; //used to determine the index of each application
         foreach($user_applications as $application){
-            //relative date handling (X days ago)
-            $days_ago = Carbon::parse($application->last_contact)->diffForHumans();
+            $number_of_applications++; //increment the index for each application
+            $application->index = $number_of_applications; //add the current index to the application 
+            $days_ago = Carbon::parse($application->last_contact)->diffForHumans(); //relative date handling (X days ago)
             $application->days_ago = $days_ago;
-            //yes or no interview icon 
-            $application->interview ? $application->interviewImage = 'images/interview.svg' : $application->interviewImage = 'images/nointerview.svg';
-            //custom status image 
-            $application->statusImage = "images/$application->status.svg";
+            $application->interview ? $application->interviewImage = 'images/interview.svg' : $application->interviewImage = 'images/nointerview.svg'; //yes or no interview icon 
+            $application->statusImage = "images/$application->status.svg"; //custom status image 
         }
         $successMessage = session()->get('successMessage');
         return view('applications.show', compact('user_applications', 'successMessage'));
@@ -79,7 +79,7 @@ class ApplicationController extends Controller
         return view('applications.edit', compact('application'));
     }
 
-    public function applyEdit(Request $request, $id){ //updates the application with new data from the edit page form
+    public function applyEdit(Request $request, $id){ //updates the selected application with new data from the edit page form
         $application = Application::find($id);
         if($application->user_id != Auth::id()){
             return redirect()->route('dashboard');
@@ -119,12 +119,13 @@ class ApplicationController extends Controller
         return redirect()->route('applications.show');
     }
 
-    public function delete($id){ //method still under contruction and useless for now
-        $application = Application::find($id);
-        if($application->user_id != Auth::id()){
+    public function delete($id){ //deletes the selected application
+        $application = Application::find($id); //get the application
+        if($application->user_id != Auth::id()){ //check if user has permission to delete
             return redirect()->route('dashboard');
-        }
-        $application->delete();
+        }else{
+            $application->delete(); //delete the application
+        };
         return redirect()->route('applications.show');
     }
 }
