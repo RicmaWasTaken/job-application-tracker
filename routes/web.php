@@ -30,6 +30,7 @@ Route::middleware(['auth', 'verified', AddUserIdToRequest::class])->group(functi
     Route::get('/leads/{id}', [LeadController::class, 'edit'])->name('leads.edit');
     Route::post('/leads/{id}', [LeadController::class, 'applyEdit'])->name('leads.applyEdit');
     Route::get('/leads/{id}/delete', [LeadController::class, 'delete'])->name('leads.delete');
+    Route::get('/leads/{id}/convert', [LeadController::class, 'convert'])->name('leads.convert');
     Route::get('/test', [DashboardController::class, 'getWeeklyApplications'])->name('applications.test');
     Route::post('/test', [ApplicationController::class, 'create'])->name('applications.testcreate');
 });

@@ -39,31 +39,35 @@
                     </a>
                     @if(isset($user_leads))
                     @foreach ($user_leads as $lead)
-                    <a href="/leads/{{$lead->id}}">
-                        <div id="lead" class="h-28 w-full relative sm:rounded-lg p-6 flex flex-row hover:bg-indigo-400 custom-border">
-                            <div id="lead-id" class="h-full aspect-square border-r-4 border-indigo-400 flex items-center justify-center self-center">
-                                <p class="text-4xl">{{$lead->index}}</p>
-                            </div>
-                            <div class="flex flex-row justify-between w-[calc(100%-4rem)]">
-                                <div id="lead-main-info" class="h-full flex flex-col pl-6 justify-center">
-                                    <p id="company-name" class="text-2xl">{{$lead->company_name}}</p>
-                                    <div class="flex flex-row">
-                                        <p id="location" class="pr-1 border-r-2 border-indigo-400">{{$lead->location}}</p>
-                                        <p id="sector" class="pl-1">{{$lead->sector}}</p>
+
+                    <div id="lead" class="h-28 w-full relative sm:rounded-lg flex flex-row custom-border">
+                        <a href="/leads/{{$lead->id}}" class="flex flex-1 hover:bg-indigo-400">
+                            <div id="lead-content" class="flex flex-row flex-1 p-6">
+                                <div id="lead-id" class="h-full aspect-square border-r-4 border-indigo-400 flex items-center justify-center self-center">
+                                    <p class="text-4xl">{{$lead->index}}</p>
+                                </div>
+                                <div class="flex flex-row justify-between w-[calc(100%-4rem)]">
+                                    <div id="lead-main-info" class="h-full flex flex-col pl-6 justify-center">
+                                        <p id="company-name" class="text-2xl">{{$lead->company_name}}</p>
+                                        <div class="flex flex-row">
+                                            <p id="location" class="pr-1 border-r-2 border-indigo-400">{{$lead->location}}</p>
+                                            <p id="sector" class="pl-1">{{$lead->sector}}</p>
+                                        </div>
+                                    </div>
+                                    <div id="lead-secondary-info" class="flex flex-row w-max h-full items-center gap-8">
+                                        <div id="dates">
+                                            <p class="text-3xl">{{$lead->days_ago}}</p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div id="lead-secondary-info" class="flex flex-row w-max h-full items-center gap-8">
-                                    <div id="dates">
-                                        <p class="text-3xl">{{$lead->days_ago}}</p>
-                                    </div>
-                                    <div id="icons" class="h-3/5 w-auto flex flex-row gap-4">
-                                        <img fill="white" src="{{asset($lead->interviewImage)}}" alt="">
-                                        <img class="h-full w-auto" src="{{asset($lead->statusImage)}}" alt="">
-                                    </div>
-                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                        <a href="/leads/{{$lead->id}}/convert" id="convert-lead" class="flex flex-col justify-center items-center bg-indigo-400 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)]">
+                            <div class="flex justify-center items-center scale-90 w-full h-full p-6 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)]">
+                                <p>Apply</p>
+                            </div>
+                        </a>
+                    </div>
                     @endforeach
                     @endif
                 </div>

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Models\Lead;
+use App\Models\Application;
 use Illuminate\Support\Carbon;
 
 class LeadController extends Controller
@@ -101,6 +102,20 @@ class LeadController extends Controller
         ]);
         $lead->update($validatedData);
         return redirect()->route('leads.show');
+    }
+
+    public function convert($id){
+        $lead = Lead::find($id);
+        if($lead->user_id != Auth::id()){
+            return redirect()->route('dashboard');
+        }
+        $lead->first_contact = Carbon::now();
+        $lead->last_contact = Carbon::now();
+        $lead->interview = false;
+        $lead->status = 'waiting';
+        Application::create($lead->toArray());
+        $this->delete($id);
+        return redirect()->route('applications.show');
     }
 
     public function delete($id){ //deletes the selected lead
