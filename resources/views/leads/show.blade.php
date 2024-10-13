@@ -62,9 +62,9 @@
                                 </div>
                             </div>
                         </a>
-                        <a href="/leads/{{$lead->id}}/convert" id="convert-lead" class="flex flex-col justify-center items-center bg-indigo-400 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)]">
-                            <div class="flex justify-center items-center scale-90 w-full h-full p-6 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)]">
-                                <p>Apply</p>
+                        <a href="/leads/{{$lead->id}}/convert" id="convert-lead" class="flex flex-col justify-center items-center bg-indigo-400 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] group">
+                            <div class="flex justify-center items-center scale-90 w-full h-full p-6 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] group-hover:bg-white">
+                                <p class=" text-xl">Apply</p>
                             </div>
                         </a>
                     </div>
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    <div id="form-wrapper" class="hidden absolute w-full h-[calc(100%-64.8px)] bg-slate-600 bg-opacity-50 justify-center items-center">
+    <div id="form-wrapper" class="hidden absolute w-full h-full bg-slate-600 bg-opacity-50 justify-center items-center">
         <div id="form-container" class="min-w-[750px] relative bg-white w-1/2 h-3/4 rounded-xl p-6">
             <form action="/leads/create" method="POST" name="new-lead-form" class="h-full flex flex-col justify-between items-center">
                 @csrf
