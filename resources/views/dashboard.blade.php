@@ -10,25 +10,19 @@
             <div class="bg-transparent overflow-hidden shadow-sm sm:rounded-lg flex-1">
                 <div class="p-6 text-gray-900 h-full flex flex-col gap-6 box-border">
                     <div class="flex flex-row justify-between flex-1 gap-6">
-                        <div class="relative bg-white sm:rounded-lg p-4 w-4/12">
-                            <div class="absolute top-4 right-4 flex flex-row bg-cyan-300 h-max w-max rounded-sm">
-                                <div class="p-1 hover:cursor-pointer" onclick="switchChart()"><</div>
-                                <div class="p-1 hover:cursor-pointer" onclick="switchChart()">></div>
+                        <div class="relative bg-white sm:rounded-lg w-4/12">
+                            <div id="labels" class="flex flex-row">
+                                <p class="w-1/2 text-center hover:cursor-pointer rounded-tl-lg p-1">Weekly ({{$weeklyDates}})</p>
+                                <p class="w-1/2 text-center bg-slate-100 hover:cursor-pointer rounded-tr-lg p-1">Lifetime</p>
                             </div>
-                            <div id="chart-container" class="h-full">
-                                <div id="weekly-container">
-                                    <p>Weekly stats ({{$weeklyDates}})</p>
-                                    <div class="flex max-h-72 w-full justify-center">
-                                        <canvas id="weekly-stats" width="200px" height="200px"></canvas>
-                                    </div>
+                            <div id="chart-container" class="h-full relative">
+                                <div id="weekly-container" class="flex max-h-72 w-full justify-center">
+                                    <canvas id="weekly-stats" width="200px" height="200px"></canvas>
                                 </div>
-                                <div id="lifetime-container" class="hidden">
-                                    <p>Lifetime stats</p>
-                                    <div class="flex max-h-72 w-full justify-center">
-                                        <canvas id="lifetime-stats" width="200px" height="200px"></canvas>
-                                    </div>
+                                <div id="lifetime-container" class="hidden max-h-72 w-full justify-center">
+                                    <canvas id="lifetime-stats" width="200px" height="200px"></canvas>
                                 </div>
-                            </div>
+                            </div>                    
                         </div>
                         <div class="bg-white sm:rounded-lg p-4 w-4/12">
                             <p>All-time stats A TABLE WITH NUMBERS LIKE MINECRAFT STATS SCREEN NOT A GRAPH</p>
@@ -63,11 +57,19 @@
             const weekly = document.getElementById('weekly-container');
             const lifetime = document.getElementById('lifetime-container');
             if (weekly.style.display === 'none') {
-                weekly.style.display = 'block';
+                weekly.style.display = 'flex';
+                weeklyButton.classList.remove('bg-slate-100');
+                weeklyButton.classList.add('bg-white');
                 lifetime.style.display = 'none';
+                lifetimeButton.classList.remove('bg-white');
+                lifetimeButton.classList.add('bg-slate-100');
             } else {
                 weekly.style.display = 'none';
-                lifetime.style.display = 'block';
+                weeklyButton.classList.remove('bg-white');
+                weeklyButton.classList.add('bg-slate-100');
+                lifetimeButton.classList.remove('bg-slate-100');
+                lifetimeButton.classList.add('bg-white');
+                lifetime.style.display = 'flex';
             }
         }
 
@@ -142,5 +144,11 @@
                 }
             }
         });
+
+        const weeklyButton = document.getElementById('labels').children[0];
+        const lifetimeButton = document.getElementById('labels').children[1];
+
+        weeklyButton.addEventListener('click', switchChart);
+        lifetimeButton.addEventListener('click', switchChart);
     </script>
 </x-app-layout>
