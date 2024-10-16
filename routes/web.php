@@ -31,7 +31,9 @@ Route::middleware(['auth', 'verified', AddUserIdToRequest::class])->group(functi
     Route::post('/leads/{id}', [LeadController::class, 'applyEdit'])->name('leads.applyEdit');
     Route::get('/leads/{id}/delete', [LeadController::class, 'delete'])->name('leads.delete');
     Route::get('/leads/{id}/convert', [LeadController::class, 'convert'])->name('leads.convert');
-    Route::get('/test', [DashboardController::class, 'getWeeklyApplications'])->name('applications.test');
+    Route::get('/test', function () {
+        return view('mail.application-alert');
+    });
     Route::post('/test', [ApplicationController::class, 'create'])->name('applications.testcreate');
 });
 
