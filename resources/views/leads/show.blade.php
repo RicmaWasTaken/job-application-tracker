@@ -39,18 +39,17 @@
                     </a>
                     @if(isset($user_leads))
                     @foreach ($user_leads as $lead)
-
-                    <div id="lead" class="h-28 w-full relative sm:rounded-lg flex flex-row custom-border">
+                    <div id="lead" class="h-28 w-full relative sm:rounded-lg flex flex-row custom-border group">
                         <a href="/leads/{{$lead->id}}" class="flex flex-1 hover:bg-indigo-400">
                             <div id="lead-content" class="flex flex-row flex-1 p-6">
-                                <div id="lead-id" class="h-full aspect-square border-r-4 border-indigo-400 flex items-center justify-center self-center">
+                                <div id="lead-id" class="h-full aspect-square border-r-4 border-indigo-400 group-hover:border-white flex items-center justify-center self-center">
                                     <p class="text-4xl">{{$lead->index}}</p>
                                 </div>
                                 <div class="flex flex-row justify-between w-[calc(100%-4rem)]">
                                     <div id="lead-main-info" class="h-full flex flex-col pl-6 justify-center">
                                         <p id="company-name" class="text-2xl">{{$lead->company_name}}</p>
                                         <div class="flex flex-row">
-                                            <p id="location" class="pr-1 border-r-2 border-indigo-400">{{$lead->location}}</p>
+                                            <p id="location" class="pr-1 border-r-2 border-indigo-400 group-hover:border-white">{{$lead->location}}</p>
                                             <p id="sector" class="pl-1">{{$lead->sector}}</p>
                                         </div>
                                     </div>
@@ -64,7 +63,7 @@
                         </a>
                         <a href="/leads/{{$lead->id}}/convert" id="convert-lead" class="flex flex-col justify-center items-center bg-indigo-400 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] group">
                             <div class="flex justify-center items-center scale-90 w-full h-full p-6 [clip-path:polygon(0%_0%,75%_0%,100%_50%,75%_100%,0%_100%)] group-hover:bg-white">
-                                <p class=" text-xl">Apply</p>
+                                <p class="text-xl">Apply</p>
                             </div>
                         </a>
                     </div>
@@ -74,7 +73,7 @@
             </div>
         </div>
     </div>
-    <div id="form-wrapper" class="hidden absolute w-full h-full bg-slate-600 bg-opacity-50 justify-center items-center">
+    <div id="form-wrapper" class="hidden fixed w-full h-[calc(100vh-64.8px)] bg-slate-600 bg-opacity-50 justify-center items-center">
         <div id="form-container" class="min-w-[750px] relative bg-white w-1/2 h-3/4 rounded-xl p-6">
             <form action="/leads/create" method="POST" name="new-lead-form" class="h-full flex flex-col justify-between items-center">
                 @csrf
@@ -135,17 +134,20 @@
             if (!isFormOpen) {
                 document.getElementById('form-wrapper').style.display = 'flex';
                 isFormOpen = true;
+                document.body.style.overflowY = "hidden"
             }
         });
         document.getElementById('form-wrapper').addEventListener('click', function() {
             if (!document.getElementById('form-container').contains(event.target)) {
                 document.getElementById('form-wrapper').style.display = 'none';
                 isFormOpen = false;
+                document.body.style.overflowY = "scroll"
             }
         });
         document.getElementById('close-button').addEventListener('click', function() {
             document.getElementById('form-wrapper').style.display = 'none';
             isFormOpen = false;
+            document.body.style.overflowY = "scroll"
         });
 
         //form filling checking

@@ -40,15 +40,15 @@
                     @if(isset($user_applications))
                     @foreach ($user_applications as $application)
                     <a href="/applications/{{$application->id}}">
-                        <div id="application" class="h-28 w-full relative sm:rounded-lg p-6 flex flex-row hover:bg-indigo-400 custom-border">
-                            <div id="application-id" class="h-full aspect-square border-r-4 border-indigo-400 flex items-center justify-center self-center">
+                        <div id="application" class="h-28 w-full relative sm:rounded-lg p-6 flex flex-row hover:bg-indigo-400 custom-border group">
+                            <div id="application-id" class="h-full aspect-square border-r-4 border-indigo-400 group-hover:border-white flex items-center justify-center self-center">
                                 <p class="text-4xl">{{$application->index}}</p>
                             </div>
                             <div class="flex flex-row justify-between w-[calc(100%-4rem)]">
                                 <div id="application-main-info" class="h-full flex flex-col pl-6 justify-center">
                                     <p id="company-name" class="text-2xl">{{$application->company_name}}</p>
                                     <div class="flex flex-row">
-                                        <p id="location" class="pr-1 border-r-2 border-indigo-400">{{$application->location}}</p>
+                                        <p id="location" class="pr-1 border-r-2 border-indigo-400 group-hover:border-white">{{$application->location}}</p>
                                         <p id="sector" class="pl-1">{{$application->sector}}</p>
                                     </div>
                                 </div>
@@ -70,7 +70,7 @@
             </div>
         </div>
     </div>
-    <div id="form-wrapper" class="hidden absolute w-full h-[calc(100%-64.8px)] bg-slate-600 bg-opacity-50 justify-center items-center">
+    <div id="form-wrapper" class="hidden fixed w-full h-[calc(100vh-64.8px)] bg-slate-600 bg-opacity-50 justify-center items-center">
         <div id="form-container" class="min-w-[750px] relative bg-white w-1/2 h-3/4 rounded-xl p-6">
             <form action="/applications/create" method="POST" name="new-application-form" class="h-full flex flex-col justify-between items-center">
                 @csrf
@@ -127,17 +127,20 @@
             if (!isFormOpen) {
                 document.getElementById('form-wrapper').style.display = 'flex';
                 isFormOpen = true;
+                document.body.style.overflowY = "hidden"
             }
         });
         document.getElementById('form-wrapper').addEventListener('click', function() {
             if (!document.getElementById('form-container').contains(event.target)) {
                 document.getElementById('form-wrapper').style.display = 'none';
                 isFormOpen = false;
+                document.body.style.overflowY = "scroll"
             }
         });
         document.getElementById('close-button').addEventListener('click', function() {
             document.getElementById('form-wrapper').style.display = 'none';
             isFormOpen = false;
+            document.body.style.overflowY = "scroll"
         });
 
         //form filling checking
